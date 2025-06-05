@@ -1,4 +1,8 @@
 # requirements.txt
+wheel # Added to help with binary package installations
+lxml # Explicitly add a common dependency of unstructured that sometimes causes issues
+charset_normalizer # Another common dependency that can cause issues
+
 streamlit==1.35.0
 langchain==0.2.5
 langchain-google-genai==0.0.17
