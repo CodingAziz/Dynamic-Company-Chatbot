@@ -17,6 +17,21 @@ This project implements a conversational AI chatbot designed to provide informat
 
 The chatbot's core functionality is orchestrated through a Retrieval-Augmented Generation (RAG) architecture:
 
+1.  **User Input:** Users interact via the Streamlit web interface.
+2.  **Entity Extraction (LLM):** The user's query is first sent to a lightweight Gemini LLM to extract the target company and specific service keywords, or to classify it as a greeting/chit-chat.
+3.  **Conditional Routing:**
+    * If identified as a greeting/chit-chat, a pre-defined response is immediately given.
+    * Otherwise, the extracted (Company, Services) pair is used.
+4.  **External Information Retrieval:** For factual queries, the extracted entities are used to perform a targeted search via the Google Custom Search API. Relevant web snippets are retrieved.
+5.  **Dynamic RAG:**
+    * The retrieved web snippets are converted into LangChain `Document` objects.
+    * An *in-memory* ChromaDB vector store is dynamically created from these documents.
+    * A LangChain RAG chain is constructed, which:
+        * Takes the current user question and the full chat history.
+        * Uses the vector store to find the most relevant document chunks based on the current question.
+        * Sends the original question, full chat history, and the retrieved document chunks to the main Google Gemini LLM.
+6.  **Answer Generation (LLM):** The Gemini LLM synthesizes a concise and accurate answer based on the provided context and chat history.
+7.  **Display Response:** The LLM's answer is displayed in the Streamlit UI.
 
 ## ⚙️ Setup (Local Development)
 
@@ -34,6 +49,26 @@ mkdir .github
 mkdir .github/workflows
 
 pip install streamlit langchain langchain-google-genai python-dotenv requests google-api-python-client chromadb unstructured beautifulsoup4 pytest pytest-mock
+```
+
+### 2. Create and Activate a Python Virtual Environment
+
+It's highly recommended to use a virtual environment to manage dependencies.
+
+```bash
+python -m venv .venv
+# Activate the virtual environment
+# On Windows: .\.venv\Scripts\activate
+# On macOS/Linux: source ./.venv/bin/activate
+```
+
+You should see (.venv) at the beginning of your terminal prompt.
+
+### 3. Install Dependencies
+Install all required Python packages listed in requirements.txt.
+
+```bash
+pip install -r requirements.txt
 ```
 
 ### 4\. Google Custom Search Engine (CSE) Setup - **Crucial Step**
