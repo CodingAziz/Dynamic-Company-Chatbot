@@ -17,8 +17,6 @@ load_dotenv()
 # --- Configuration ---
 GOOGLE_CSE_ID = os.getenv("GOOGLE_CSE_ID")
 GOOGLE_API_KEY_FOR_SEARCH = os.getenv("GOOGLE_API_KEY_FOR_SEARCH")
-print("[DEBUG] GOOGLE_CSE_ID:", os.getenv("GOOGLE_CSE_ID"))
-print("[DEBUG] GOOGLE_API_KEY_FOR_SEARCH:", os.getenv("GOOGLE_API_KEY_FOR_SEARCH"))
 
 if not GOOGLE_CSE_ID or not GOOGLE_API_KEY_FOR_SEARCH:
     print("WARNING: Google Custom Search API keys not set. External search will not function.")
