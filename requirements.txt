@@ -1,16 +1,13 @@
 # requirements.txt
-wheel # Added to help with binary package installations
-lxml # Explicitly add a common dependency of unstructured that sometimes causes issues
-charset_normalizer # Another common dependency that can cause issues
-
+langchain==0.3.25
+langchain-google-genai==2.1.5
+google-ai-generativelanguage==0.6.18
 streamlit==1.35.0
-langchain==0.2.5
-langchain-google-genai==0.0.17
 python-dotenv==1.0.1
 requests==2.32.3
 google-api-python-client==2.130.0
 chromadb==0.5.3
-unstructured==0.14.4
+unstructured>=0.17.0
 beautifulsoup4==4.12.3
 pytest==8.2.2
 pytest-mock==3.12.0
