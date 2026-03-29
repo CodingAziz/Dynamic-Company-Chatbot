@@ -7,9 +7,9 @@ from typing import List
 from langchain_core.documents import Document
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import Chroma
-from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain.chains import create_retrieval_chain # Removed create_history_aware_retriever
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_classic.chains.combine_documents import create_stuff_documents_chain
+from langchain_classic.chains import create_retrieval_chain # Removed create_history_aware_retriever
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.messages import HumanMessage, AIMessage
 import traceback
@@ -56,7 +56,7 @@ async def get_rag_answer(user_question: str, external_documents: List[Document],
         vectorstore = Chroma.from_documents(documents=external_documents, embedding=embeddings)
 
         # 3. Initialize LLM (Gemini Pro Flash)
-        llm = ChatGoogleGenerativeAI(model="models/gemini-1.5-flash", google_api_key=GOOGLE_API_KEY, temperature=0.2)
+        llm = ChatGoogleGenerativeAI(model="models/gemini-2.5-flash", google_api_key=GOOGLE_API_KEY, temperature=0.2)
 
         # --- No History-Aware Retriever ---
         # The retriever will search the in-memory vector store for the most relevant

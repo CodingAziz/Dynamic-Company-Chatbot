@@ -9,7 +9,7 @@ import os
 import json
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.messages import HumanMessage, AIMessage
 from typing import Tuple, Optional, List
@@ -29,7 +29,7 @@ if not GOOGLE_API_KEY:
     st.stop() # Stop the app if API key is missing
 
 # --- LLM for Extraction (Lightweight Model) ---
-extraction_llm = ChatGoogleGenerativeAI(model="models/gemini-1.5-flash", google_api_key=GOOGLE_API_KEY, temperature=0.1)
+extraction_llm = ChatGoogleGenerativeAI(model="models/gemini-2.5-flash", google_api_key=GOOGLE_API_KEY, temperature=0.1)
 
 # Prompt for extraction - Modified to include specific tags for greetings/chit-chat
 extraction_prompt = ChatPromptTemplate.from_messages([
